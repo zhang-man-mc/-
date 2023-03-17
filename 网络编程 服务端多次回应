@@ -1,0 +1,83 @@
+//服务端
+package cn.sun.net;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Server {
+    public static void main(String[] args) throws IOException{
+        //创建一个服务的连接对象
+        ServerSocket server=new ServerSocket(8888);
+        //给出提示信息
+        System.out.println("..等待客户端来的连接..");
+        //监听来自客户端的拦截，如果有客户端来连接当前服务器，那么可以取得表示客户端的连接对象（在接受到连接之前该方法是阻塞的）
+        Socket client=server.accept();
+        //取得输出流对象
+        PrintStream out=new PrintStream(client.getOutputStream());
+        //取得输入流对象(用来取得客户端出入的数据)
+        Scanner scanner=new Scanner(client.getInputStream());
+        //定义一个变量
+        boolean flag=true;
+        while(flag){
+            if(scanner.hasNext()){
+                String str=scanner.nextLine().trim();
+                if("byebye".equals(str)){
+                    out.println("拜拜，再见！");
+                    flag=false;
+                }else{
+                    out.println("Echo:"+str);
+                }
+
+            }
+        }
+
+        //关闭相关资源
+        server.close();
+        out.close();
+        client.close();
+        scanner.close();
+    }
+}
+
+
+
+//客户端
+package cn.sun.net;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Clien {
+    public static void main(String[] args) throws IOException {
+        //创建一个表示客户端连接的对象
+        Socket client=new Socket("localhost",8888);
+        //取得输入流对象（目的时获取服务端返回的数据）
+        Scanner scanner =new Scanner(client.getInputStream());
+        //取得输出流对象(用来向服务器输出数据)
+        PrintStream out=new PrintStream(client.getOutputStream());
+        //创建一个取得键盘输出的信息对象
+        Scanner boardIn=new Scanner(System.in);
+        boolean flag=true;
+        while (flag) {
+            System.out.println("请输入药发送到服务器的数据");
+            String str=boardIn.nextLine().trim();
+            out.println(str);
+            if(str.equals("byebye")){
+                flag=false;
+            }
+            if(scanner.hasNext()){
+                System.out.println(scanner.nextLine()); //把服务端返回的数据输出
+            }
+        }
+
+        //关闭相关资源
+        client.close();
+        scanner.close();
+        boardIn.close();
+        out.close();
+
+    }
+}
