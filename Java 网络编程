@@ -1,0 +1,49 @@
+//服务端
+package cn.sun.net;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Server {
+    public static void main(String[] args) throws IOException{
+        //创建一个服务的连接对象
+        ServerSocket server=new ServerSocket(8888);
+        //给出提示信息
+        System.out.println("..等待客户端来的连接..");
+        //监听来自客户端的拦截，如果有客户端来连接当前服务器，那么可以取得表示客户端的连接对象（在接受到连接之前是阻塞的）
+        Socket client=server.accept();
+        //取得输出流对象
+        PrintStream out=new PrintStream(client.getOutputStream());
+        //向客户端输出信息
+        out.println("你是MM 还是GG？");
+
+        //关闭相关资源
+        server.close();
+        out.close();
+        client.close();
+    }
+}
+
+//客户端
+package cn.sun.net;
+import java.io.IOException;
+import java.net.Socket;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Clien {
+    public static void main(String[] args) throws IOException {
+        //创建一个表示客户端连接的对象
+        Socket client=new Socket("localhost",8888);
+        //取得输入流对象（目的时获取服务端返回的数据）
+        Scanner scanner =new Scanner(client.getInputStream());
+        if(scanner.hasNext()){
+            System.out.println("服务端返回的数据时是:"+scanner.nextLine());
+        }
+        //关闭相关资源
+        client.close();
+        scanner.close();
+
+    }
+}
