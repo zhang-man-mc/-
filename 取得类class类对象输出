@@ -1,0 +1,18 @@
+
+import java.util.Date;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        Date date=new Date();
+        //第一种方式取得
+        Class<?> c1=date.getClass();
+        //第二种方式取得
+        Class<?> c2=Class.forName("java.util.Date");
+        //第三种方式
+        Class<?> c3=Date.class;
+        System.out.println(c1);
+        System.out.println(c2);
+        System.out.println(c3);
+
+    }
+}
