@@ -1,0 +1,27 @@
+
+
+package cn.sun.danli;
+public class SingleTon {
+    //实例化本类对象
+    private static SingleTon instance=new SingleTon();  //饿汉式
+    //构造方法私有化
+    private SingleTon(){};
+    //提供一个静态方法供给其他对象调用
+    public static SingleTon getInstance(){
+        return instance;
+    }
+
+}
+
+
+
+
+package cn.sun.danli;
+public class Test {
+    public static void main(String[] args) {
+        System.out.println(SingleTon.getInstance());
+        System.out.println(SingleTon.getInstance());
+        System.out.println(SingleTon.getInstance());
+        System.out.println(SingleTon.getInstance());
+    }
+}
