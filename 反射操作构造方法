@@ -1,0 +1,117 @@
+
+
+package cn.sun.fanshe;
+
+import java.io.Serializable;
+
+public class Emp implements Serializable,Cloneable {
+    private Integer empno;  //编号
+    private String  ename;
+    private String job;
+    private Double sal;   //薪水
+
+    public Emp(Integer empno) {
+        this.empno = empno;
+    }
+
+    public Emp(Integer empno, String ename) {
+        this.empno = empno;
+        this.ename = ename;
+    }
+
+    public Emp(Integer empno, String ename, String job) {
+        this.empno = empno;
+        this.ename = ename;
+        this.job = job;
+    }
+
+    public Emp(Integer empno, String ename, String job, Double sal) {
+        this.empno = empno;
+        this.ename = ename;
+        this.job = job;
+        this.sal = sal;
+    }
+
+    public Emp() {
+        //System.out.println("hello");
+    }
+}
+
+
+
+
+//newInstance()方法实例化对象的时候默认调用时无参构造方法，如果我们为类定义了有参构造那么必须显示的将无参构造写出来。
+package cn.sun.fanshe;
+import java.lang.reflect.Constructor;
+import java.util.Date;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        //取得Date类的class类对象
+        Class cls=Emp.class;
+        //使用反射来实例化一个 Emp类的普通对象（等价于之前使用new实现）
+        Emp emp=(Emp)cls.newInstance();
+        System.out.println(emp);
+
+    }
+}
+
+
+//取所有的public修饰的构造
+package cn.sun.fanshe;
+import java.lang.reflect.Constructor;
+import java.util.Date;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        //取得Date类的class类对象
+        Class cls=Emp.class;
+        //取得Emp类的所有public的构造方法
+        Constructor cons[]=cls.getConstructors();
+        System.out.println(cons);
+    }
+}
+
+
+//取特定的某个有参构造
+package cn.sun.fanshe;
+import java.lang.reflect.Constructor;
+import java.util.Date;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        //取得Date类的class类对象
+        Class cls=Emp.class;
+        //取得第一个有参构造
+        Constructor con1=cls.getConstructor(Integer.class);
+        //使用第一个构造方法实例化Emp类的对象(等价于new关键字)
+        Emp emp1=(Emp)con1.newInstance(100);
+        System.out.println(emp1);
+
+        //取得第二个有参构造
+        Constructor con2=cls.getConstructor(Integer.class,String.class);
+        //使用第一个构造方法实例化Emp类的对象(等价于new关键字)
+        Emp emp2=(Emp)con2.newInstance(100,"hello");
+        System.out.println(emp2);
+    }
+}
+
+
+//取private修饰的构造
+package cn.sun.fanshe;
+import java.lang.reflect.Constructor;
+import java.util.Date;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        //取得Date类的class类对象
+        Class cls=Emp.class;
+
+        //取得第二个有参构造
+        Constructor con2=cls.getDeclaredConstructor(Integer.class,String.class);
+        con2.setAccessible(true);
+        //使用第一个构造方法实例化Emp类的对象(等价于new关键字)
+        Emp emp2=(Emp)con2.newInstance(100,"hello");
+        System.out.println(emp2);
+    }
+}
