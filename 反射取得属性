@@ -1,0 +1,89 @@
+
+package cn.sun.fanshe;
+
+import java.io.Serializable;
+
+public class Emp implements Serializable,Cloneable {
+    private Integer empno;  //编号
+    private String  ename;
+    private String job;
+    private Double sal;   //薪水
+
+    public Emp(Integer empno) {
+        this.empno = empno;
+    }
+
+    public Emp(Integer empno, String ename) {
+        this.empno = empno;
+        this.ename = ename;
+    }
+
+    public Emp(Integer empno, String ename, String job) {
+        this.empno = empno;
+        this.ename = ename;
+        this.job = job;
+    }
+
+    public Emp(Integer empno, String ename, String job, Double sal) {
+        this.empno = empno;
+        this.ename = ename;
+        this.job = job;
+        this.sal = sal;
+    }
+
+    public Emp() {
+        //System.out.println("hello");
+    }
+}
+
+
+//根据属性名称取得单个属性
+package cn.sun.fanshe;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        //取得Date类的class类对象
+        Class cls=Emp.class;
+        //取得第二个有参构造
+        Constructor con2=cls.getConstructor(Integer.class,String.class);
+        //con2.setAccessible(true);
+        //使用第一个构造方法实例化Emp类的对象(等价于new关键字)
+        Emp emp2=(Emp)con2.newInstance(100,"hello");
+        
+        //根据属性名称取得单个属性
+        Field f1=cls.getDeclaredField("empno");
+        f1.setAccessible(true);
+        System.out.println(f1.get(emp2));
+    }
+}
+
+
+
+
+//取得所有属性值
+package cn.sun.fanshe;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+        //取得Date类的class类对象
+        Class cls=Emp.class;
+        //取得第二个有参构造
+        Constructor con2=cls.getConstructor(Integer.class,String.class);
+        //con2.setAccessible(true);
+        //使用第一个构造方法实例化Emp类的对象(等价于new关键字)
+        Emp emp2=(Emp)con2.newInstance(100,"hello");
+        //取得所有属性
+        Field fa[]=cls.getDeclaredFields();
+        for (Field f:fa) {
+            //取消属性的私有封装
+            f.setAccessible(true);
+            //取得属性的值
+            System.out.println(f.getName()+"-->"+f.get(emp2));
+
+        }
+    }
+}
