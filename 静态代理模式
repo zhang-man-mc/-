@@ -1,0 +1,47 @@
+
+//接口
+package cn.sun.jingtai;
+public interface Subject {
+    /*睡觉的方法*/
+    public void sleepWithAifei();
+
+}
+
+
+package cn.sun.jingtai;
+public class EmperorA implements Subject{
+    public  void sleepWithAifei(){
+        //现在皇上只做一件事：和爱妃睡觉
+        System.out.println("真正的目的：和爱妃睡觉");
+    }
+
+}
+
+
+
+package cn.sun.jingtai;
+public class WangGongGong {
+    private Subject subject;
+
+    public WangGongGong(Subject subject) {
+        this.subject = subject;
+    }
+    public void invoke(){
+        System.out.println("给皇上洗澡，接来爱妃");
+        this.subject.sleepWithAifei();
+        System.out.println("给皇上洗澡，送走爱妃");
+    }
+}
+
+
+
+package cn.sun.jingtai;
+public class Test {
+    public static void main(String[] args) {
+        Subject subject=new EmperorA();
+        //实例化一个代理类对象
+        WangGongGong proxy=new WangGongGong(subject);
+        //调用代理类方法
+        proxy.invoke();
+    }
+}
