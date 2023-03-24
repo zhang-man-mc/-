@@ -1,0 +1,60 @@
+//泛型类
+package cn.sun.fangxing;
+public class Person<T> {
+    private String name;
+    private T a;
+
+    public T getA() {
+        return a;
+    }
+
+    public void setA(T a) {
+        this.a = a;
+    }
+}
+
+
+package cn.sun.fangxing;
+public class Test {
+    public static void main(String[] args) {
+        Person<Integer> per=new Person<Integer>();
+        per.setA(14);
+        System.out.println(per.getA());
+    }
+}
+
+
+
+//------------------------------------------------
+//多个泛型类
+package cn.sun.fangxing;
+public class Person<T,k> {
+    private k name;
+    private T a;
+
+    public T getA() {
+        return a;
+
+    public void setA(T a) {
+        this.a = a;
+    }
+    public k getName() {
+        return name;
+    }
+    public void setName(k name) {
+        this.name = name;
+    }
+}
+
+
+package cn.sun.fangxing;
+public class Test {
+    public static void main(String[] args) {
+        Person<Integer,String> per=new Person<Integer,String>();
+        per.setName("张三");
+        per.setA(14);
+        System.out.println(per.getName());
+        System.out.println(per.getA());
+    }
+}
+
