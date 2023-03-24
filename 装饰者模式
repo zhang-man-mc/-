@@ -1,0 +1,95 @@
+
+//接口
+package cn.sun.zhuangshi;
+public interface MakeUpAnimal {
+    public void make();
+}
+
+
+//女朋友类
+package cn.sun.zhuangshi;
+public class GirlFriend implements MakeUpAnimal{
+    public void make(){
+        System.out.println("简单的洗漱！");
+    }
+}
+
+
+//装饰者
+package cn.sun.zhuangshi;
+public class Decorator implements MakeUpAnimal{
+    private MakeUpAnimal makeUpAnimal;
+
+    public Decorator(MakeUpAnimal makeUpAnimal) {
+        this.makeUpAnimal = makeUpAnimal;
+    }
+    public void make(){
+        this.makeUpAnimal.make();
+    }
+
+}
+
+//口红
+package cn.sun.zhuangshi;
+public class Lipstick extends Decorator{
+    //调用了父类的构造方法，相当于吧makeUpAnimal传递给了Decorator的有参构造
+    public Lipstick(MakeUpAnimal makeUpAnimal) {
+        super(makeUpAnimal);
+    }
+    public void makeLipstick(){
+        System.out.println("涂上淡红色的口红！");
+    }
+    public void make(){
+        //调用了父类的make()方法
+        super.make();
+        //调用本类口号处理方法
+        this.makeLipstick();
+    }
+}
+
+
+
+//眉毛
+package cn.sun.zhuangshi;
+public class Eyebrow extends Decorator{
+    public Eyebrow(MakeUpAnimal makeUpAnimal) {
+        super(makeUpAnimal);
+    }
+    public void makeEyebrow(){
+        System.out.println("眉毛化妆：简单的用绿色画一下就行了！");
+    }
+    public void make(){
+        //调用了父类的make()方法
+        super.make();
+        this.makeEyebrow();
+    }
+}
+
+
+//眼线
+package cn.sun.zhuangshi;
+public class Eyeline extends Decorator{
+    public Eyeline(MakeUpAnimal makeUpAnimal) {
+        super(makeUpAnimal);
+    }
+    public void makeEyeline(){
+        System.out.println("眼线处理：简单画一下就行了！");
+    }
+    public void make(){
+        super.make();
+        this.makeEyeline();
+    }
+}
+
+
+
+
+package cn.sun.zhuangshi;
+public class Test {
+    public static void main(String[] args) {
+        GirlFriend friend=new GirlFriend();
+        new Eyeline(new Eyebrow(new Eyeline(friend))).make();
+    }
+}
+
+
