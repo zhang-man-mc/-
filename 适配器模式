@@ -1,0 +1,82 @@
+//接口
+package cn.sun.shipeiqi;
+public interface Animal {
+    public void eat();
+    public void sleep();
+    public void walk();
+    public void creep();
+    public void flying();
+}
+
+
+//适配器类
+package cn.sun.shipeiqi;
+public class Adapter implements Animal{
+    @Override
+    public void eat() {
+    }
+
+    @Override
+    public void sleep() {
+    }
+
+    @Override
+    public void walk() {
+    }
+
+    @Override
+    public void creep() {
+    }
+
+    @Override
+    public void flying() {
+    }
+}
+
+
+package cn.sun.shipeiqi;
+public class Human extends  Adapter{
+    @Override
+    public void eat() {
+        System.out.println("吃饭");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("睡觉");
+    }
+
+    @Override
+    public void walk() {
+        System.out.println("走路");
+    }
+}
+
+
+
+
+package cn.sun.shipeiqi;
+
+public class Bird extends  Adapter{
+    @Override
+    public void eat() {
+        System.out.println("吃饭");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("睡觉");
+    }
+
+    @Override
+    public void walk() {
+        System.out.println("走路");
+    }
+
+    @Override
+    public void flying() {
+        System.out.println("飞行");
+    }
+}
+
+
