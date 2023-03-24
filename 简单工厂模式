@@ -1,0 +1,80 @@
+
+package cn.sun.shipeiqi;
+
+public interface Animal {
+    public void eat();
+}
+
+
+package cn.sun.shipeiqi;
+
+public class Pig implements Animal{
+    public void eat(){
+        System.out.println("吃食");
+    }
+}
+
+
+package cn.sun.shipeiqi;
+public class Bird implements Animal{
+    @Override
+    public void eat() {
+        System.out.println("吃饭");
+    }
+
+}
+
+
+package cn.sun.shipeiqi;
+public class AnimalFactory {
+    //定义一个静态方法取得动物类对象
+    public static Animal getAnimal(String animalName){
+        if("bird".equals(animalName)){
+            return new Bird();
+        }else if("pig".equals(animalName)){
+            return new Pig();
+        }
+        return null;
+    }
+}
+
+
+package cn.sun.shipeiqi;
+public class Test {
+    public static void main(String[] args) {
+        Animal animal=AnimalFactory.getAnimal("bird");
+        animal.eat();
+
+    }
+}
+
+
+//存在问题：如果Animal接口扩展了一千个子类，那么工厂中就需要判断一千次，这就意味着一旦程序扩展就要修改工厂的代码结构，这违背了开闭原则。
+//用反射加泛型解决
+
+
+
+
+package cn.sun.shipeiqi;
+public class AnimalFactory {
+    public static <T> T getAnimal(Class<T> cls){
+        try {
+            return cls.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+
+
+package cn.sun.shipeiqi;
+public class Test {
+    public static void main(String[] args) {
+        Animal animal=AnimalFactory.getAnimal(Pig.class);
+        animal.eat();
+    }
+}
+
