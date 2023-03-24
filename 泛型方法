@@ -1,0 +1,23 @@
+//泛型方法无返回值
+public class Main  {
+    public static void main(String[] args) {
+       fun("随便写什么");
+    }
+    
+    public static <T> void fun(T t){
+        System.out.println(t);
+
+    }
+}
+
+
+//泛型方法返回值不确定时
+public class Main  {
+    public static void main(String[] args) {
+        System.out.println(fun("今天天气不错"));
+    }
+    
+    public static <T> T fun(T t){
+        return t;
+    }
+}
