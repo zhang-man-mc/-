@@ -1,0 +1,91 @@
+
+//List接口实现类
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        //创建集合对象
+        List<String> ary=new ArrayList<>();
+        ary.add("e");
+        ary.add("f");
+        ary.add("g");
+        System.out.println("输出1号位置："+ary.get(1));
+        ary.remove(2);
+        ary.set(1,"你好");
+        for(int i = 0; i < ary.size(); i++) {
+            System.out.println(ary.get(i));
+        }
+    }
+}
+
+
+//Iterator迭代器遍历集合中元素
+public class Main {
+    public static void main(String[] args) {
+        //创建集合对象
+        Collection<String> ary=new ArrayList<>();
+        ary.add("a");
+        ary.add("b");
+        ary.add("c");
+        Iterator<String> it=ary.iterator();
+        while (it.hasNext()){
+            System.out.println((String)it.next());
+        }
+        }
+        
+}
+
+
+
+//Set接口实现类HashSet
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        //创建Set集合对象
+        Set set=new HashSet();
+        set.add("c");
+        set.add("c");
+        set.add("a");
+        set.add("b");
+        set.add(null);
+        Iterator<String> it=set.iterator();
+        while (it.hasNext())
+            System.out.println((String)it.next());
+        }
+}
+
+
+//Map接口
+import org.w3c.dom.ls.LSOutput;
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        //创建Map接口引用
+        Map<String,String> map=new HashMap<>();
+        map.put("rose","Java从入门到精通");
+        map.put("jack","Android从入门到精通");
+        map.put("sir","21天从入门到精通");
+        map.put("mary","21天学Android");
+        //取到Set接口引用
+        Set<String> set=map.keySet();
+        Iterator<String> it=set.iterator();
+        System.out.println("key是：");
+        while (it.hasNext()){
+            System.out.print(it.next()+"\t");
+        }
+        //取得Colle接口引用
+        Collection<String> coll= map.values();
+        System.out.println("\n值是：");
+        it=coll.iterator();
+        while (it.hasNext()){
+            System.out.print(it.next()+"\t");
+        }
+        //测试Map接口提供的方法
+        System.out.println("\n取键值对：");
+        System.out.println(map.get("mary"));
+        System.out.println(map.get("jack"));
+        System.out.println(map.containsKey("rose"));
+        }
+}
+
