@@ -81,3 +81,63 @@ public class Clien {
 
     }
 }
+
+
+
+
+//***************************************2023.4.21***************************************
+//***************************************多发多收****************************************
+
+//服务端
+public class Server {
+    public static void main(String[] args) throws IOException {
+        //TCP协议 接受数据
+
+        //1.创建对象ServerSocket
+        ServerSocket ss=new ServerSocket(10000);
+
+        //2.监听客户端的链接
+        Socket socket=ss.accept();
+
+        //3.从链接通道中获取输出流读取数据
+        /*InputStream is=socket.getInputStream();
+        InputStreamReader iss=new InputStreamReader(is);
+        BufferedReader isss=new BufferedReader(iss);*/
+        BufferedReader isss=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        int b;
+        while((b=isss.read())!=-1){
+            System.out.print((char)b);
+        }
+
+        //4.释放资源
+        isss.close();
+        ss.close();
+    }
+}
+
+
+//客户端
+public class Client {
+    public static void main(String[] args) throws IOException {
+        //TCP 协议 ，发送数据
+        //1.创建Socket对象
+        //细节：在创建对象的同时会连接服务器
+        //如果连接不上，会报错
+        Socket socket=new Socket("127.0.0.1",10000);
+
+        //2.可以从连接通道中获取输出流
+        OutputStream os=socket.getOutputStream();
+        Scanner sc = new Scanner(System.in);
+        //写入数据
+        while (true) {
+            System.out.println("请输入您要发送的信息");
+            String str=sc.nextLine();
+            if(str.equals("886"))
+                break;
+            os.write(str.getBytes());
+        }
+        //3.释放资源
+        os.close();
+        socket.close();
+    }
+}
