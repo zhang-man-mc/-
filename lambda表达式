@@ -1,0 +1,128 @@
+//函数式接口
+public interface Lambda_interface<T> {
+    //String doing(String a,String b);
+    //void doing();
+    //int doing(int a,int b);
+    //String menthod(Date date);
+    //int method(T[] t);
+
+    //Lambda_exp action(String a);  //引用构造方法
+
+    void sort(Integer arr[]);
+}
+
+
+//lambda表达式实现
+package org.example;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.function.Function;
+import java.util.logging.SimpleFormatter;
+
+public class Lambda_exp {
+
+    //int value=100;
+
+    /*static int add(int x,int y){
+        return x+y;
+    }*/
+
+    /*public String day(Date date){
+        SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormatter.format(date);
+    }*/
+    //引用泛型方法
+    /*static public <T>int repeatCount(T[] t){
+        int arraylength=t.length;
+        HashSet<T> set = new HashSet<>();
+        for(T a:t){
+            set.add(a);
+        }
+        return arraylength-set.size();
+    }*/
+    //无参和有参构造方法
+    /*public Lambda_exp(){
+        System.out.println("这是无参构造");
+    }
+    public Lambda_exp(String a){
+        System.out.println("这是有参构造");
+    }*/
+    public void test(){
+        //lambda实现有参抽象方法
+        /*Lambda_interface lambda=(x,y)-> x+y;
+        System.out.println(lambda.doing("天气","不错"));*/
+
+        //lambda无法更改局部变量值，因为局部变量在lambda表达书中默认被定义为final
+        /*final int a=10;
+        Lambda_interface lambda=()->{
+            //a=9;
+            System.out.println(a);
+        };
+        lambda.doing(); //运行接口方法*/
+
+        //lambda可以修改类成员变量
+        /*Lambda_interface lambda=()->{    //实现函数式接口
+            value=90;
+        };
+        System.out.println("value未修改为："+value);
+        lambda.doing();
+        System.out.println("value修改后为："+value);*/
+
+        //引用静态方法
+        /*Lambda_interface lambda=Lambda_exp::add;
+        int a=lambda.doing(18,18);
+        System.out.println(a);*/
+
+        //引用成员方法
+        /*Lambda_exp lambda_exp = new Lambda_exp();
+        Lambda_interface lambda_interface=lambda_exp::day;
+        Date date = new Date();
+        System.out.println("格式化前："+date);
+        System.out.println("格式化后："+lambda_interface.menthod(date));*/
+
+        //引用带泛型的方法
+        /*Integer a[]={1,2,3,4,5,6,1,1,2,3,5};
+        String s[]={"王","张","王","张","李"};
+        Lambda_interface<Integer> lambda1=Lambda_exp::<Integer>repeatCount;
+        int b1=lambda1.method(a);
+        Lambda_interface<String> lambda2=Lambda_exp::<String>repeatCount;
+        int b2= lambda2.method(s);
+        System.out.println("数组重复个数为："+b1);
+        System.out.println("字符串数组重复个数为："+b2);*/
+
+        /*Lambda_interface lambda_interface=Lambda_exp::new;
+        Lambda_exp a=lambda_interface.action("a");*/
+
+        //Function接口
+        /*Integer[] s={192,168,0,253};
+        Function<Integer[],String> function=(n)->{
+            StringBuilder str = new StringBuilder();
+            for(Integer a:n){
+                str.append(a);
+                str.append('.');
+            }
+            return str.toString();
+        };
+        String s1=function.apply(s);
+        System.out.println(s1);*/
+
+        //创建Lambda_interface接口的对象，让对象引用java.util.Arrays类的sort()静态方法，让后对数组s排序
+       /* Integer[] s={9,4,1,5,2,6,3};
+        Lambda_interface lambda_interface=java.util.Arrays::sort;
+        lambda_interface.sort(s);
+        for(Integer a:s){
+            System.out.print(a+" ");
+        }*/
+
+    }
+    public static void main(String[] args) {
+        Lambda_exp lambda_exp=new Lambda_exp();
+        lambda_exp.test();
+
+        /*Lambda_interface lambda_interface=Lambda_exp::new;
+        Lambda_exp a=lambda_interface.action("a");*/
+
+    }
+}
